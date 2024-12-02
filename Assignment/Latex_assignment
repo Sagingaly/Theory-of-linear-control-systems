@@ -1,0 +1,706 @@
+\documentclass[a4paper]{article}
+\usepackage[14pt]{extsizes} % setting font size
+\usepackage[utf8]{inputenc} % setting encoding
+\usepackage[russian, english]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage[
+    left=20mm, top=15mm, right=15mm, bottom=15mm, nohead, footskip=10mm
+]{geometry}
+\usepackage{times}
+
+\begin{document}
+
+\begin{center}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=18cm]{images/logo (1) (1).jpg}
+    \end{figure}
+
+    \large{
+        \textbf{JSC "Kazakh-British Technical University"}\break
+    }
+    \large{
+        School of Information Technology and Engineering\break
+    }\\
+    
+    \vspace{5cm} % adds vertical space
+
+    \large{
+        \textbf{Assignment}
+    }\\
+
+    \vspace{5cm} % adds vertical space
+
+    \begin{flushright}
+        Done by: \textbf{Meldeshuly Sagingaly}\break
+        Checked by: \textbf{Yessenzhanov Kuanysh}
+    \end{flushright}
+
+    \vspace{1cm} % adds vertical space
+
+\end{center}
+
+\begin{center} 
+    Almaty, 2024
+\end{center}
+
+\thispagestyle{empty}
+
+
+
+
+\author{}
+\date{}
+
+
+
+
+
+\newpage
+\begin{document}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem 1}
+\section*{1. Definition of the values of \( k \) for which the system is asymptotically stable:}
+For the stability analysis, we need to find the eigenvalues of the state matrix
+\[
+A = \begin{bmatrix} 
+-1 & 10k \\
+2 & k-1
+\end{bmatrix}.
+\]
+The eigenvalues \( \lambda \) are determined by solving the characteristic equation:
+\[
+\det(A - \lambda I) = 0,
+\]
+where
+\[
+A - \lambda I = \begin{bmatrix} 
+-1 - \lambda & 10k \\
+2 & k-1 - \lambda
+\end{bmatrix}.
+\]
+Thus, the determinant is:
+\[
+\det(A - \lambda I) = (-1 - \lambda)(k - 1 - \lambda).
+\]
+The eigenvalues are:
+\[
+\lambda_1 = -1, \quad \lambda_2 = k - 1.
+\]
+For asymptotic stability, all eigenvalues must be strictly negative:
+\[
+\lambda_1 = -1 < 0, \quad \lambda_2 = k - 1 < 0.
+\]
+The condition for \( \lambda_2 \) is:
+\[
+k - 1 < 0 \quad \Rightarrow \quad k < 1.
+\]
+Thus, the system is asymptotically stable if \( k < 1 \).
+
+\section*{2. Definition of the values of \( k \) for which the system is unstable:}
+The system is unstable if at least one eigenvalue has a positive real part. Since \( \lambda_1 = -1 \) is always negative, the instability condition depends only on \( \lambda_2 = k - 1 \):
+\[
+\lambda_2 > 0 \quad \Rightarrow \quad k - 1 > 0 \quad \Rightarrow \quad k > 1.
+\]
+Thus, the system is unstable if \( k > 1 \).
+
+\section*{3. Definition of the values of \( k \) for which the system is marginally stable:}
+Marginal stability occurs if an eigenvalue lies on the imaginary axis (\( \text{Re}(\lambda) = 0 \)) and does not have positive real parts.
+
+For \( \lambda_2 = k - 1 \), marginal stability occurs if:
+\[
+k - 1 = 0 \quad \Rightarrow \quad k = 1.
+\]
+Thus, the system is marginally stable when \( k = 1 \).
+
+\section*{4. Finding the transfer function of the closed-loop system:}
+First, let's determine the transfer function in general form. The system matrices are:
+\[
+A = \begin{bmatrix} 
+-1 & 10k \\
+2 & k-1
+\end{bmatrix}, \quad
+B = \begin{bmatrix} 
+1 \\
+k
+\end{bmatrix}, \quad
+C = \begin{bmatrix} 
+k & 0
+\end{bmatrix}, \quad
+D = 1.
+\]
+The transfer function is:
+\[
+G(s) = C(sI - A)^{-1} B + D.
+\]
+Let's compute \( (sI - A) \):
+\[
+sI - A = \begin{bmatrix} 
+s + 1 & -10k \\
+-2 & s - (k-1)
+\end{bmatrix}.
+\]
+The inverse matrix is:
+\[
+(sI - A)^{-1} = \begin{bmatrix} 
+\frac{1}{s+1} & \frac{10k}{(s+1)(s - (k-1))} \\
+0 & \frac{1}{s - (k-1)}
+\end{bmatrix}.
+\]
+Now we substitute into the transfer function equation:
+\[
+G(s) = \begin{bmatrix} 
+k & 0
+\end{bmatrix}
+\begin{bmatrix} 
+\frac{1}{s+1} & \frac{10k}{(s+1)(s - (k-1))} \\
+0 & \frac{1}{s - (k-1)}
+\end{bmatrix}
+\begin{bmatrix} 
+1 \\
+k
+\end{bmatrix} + 1.
+\]
+Simplifying the expression:
+\[
+G(s) = k\left(\frac{1}{s+1}\right) + k^2 \cdot \frac{10k}{(s+1)(s - (k-1))} + 1.
+\]
+The transfer function becomes:
+\[
+G(s) = \frac{k}{s+1} + \frac{10k^4}{(s+1)(s - (k-1))} + 1.
+\]
+
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=15cm]{images/img14.png}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+\section*{Problem 2}
+\section*{Step-by-Step Derivation of the Transfer Function}
+
+We are given a Nyquist plot and tasked with finding the transfer function of the system. Let's break down the steps.
+
+\subsection*{1. System Type: Second-Order System}
+
+For a second-order system, the general form of the transfer function is:
+
+\[
+G(s) = \frac{K}{s^2 + 2\zeta\omega_n s + \omega_n^2}
+\]
+
+Where:
+\begin{itemize}
+    \item \( K \) is the system gain,
+    \item \( \zeta \) is the damping coefficient,
+    \item \( \omega_n \) is the natural frequency of the system.
+\end{itemize}
+
+The goal is to find the values of \( K \), \( \zeta \), and \( \omega_n \) from the Nyquist plot.
+
+\subsection*{2. Analyzing the Nyquist Plot}
+
+On the Nyquist plot, we focus on two key elements:
+\begin{itemize}
+    \item \textbf{Amplitude}: This gives us the system's gain \( K \) and the frequency response magnitude.
+    \item \textbf{Phase Shift}: This helps determine the damping coefficient \( \zeta \) and the natural frequency \( \omega_n \).
+\end{itemize}
+
+The plot provides the frequency response \( G(j\omega) \), from which we extract these parameters.
+
+\subsection*{3. Determining Parameters}
+
+From the Nyquist plot, we estimate the following parameters:
+
+\begin{itemize}
+    \item \textbf{Gain \( K \)}: 
+        The amplitude at a specific frequency will give us \( K \). For simplicity, we assume \( K = 1 \) if the amplitude is near 1.
+    
+    \item \textbf{Damping Coefficient \( \zeta \)}: 
+        The phase angle at a specific frequency is used to determine \( \zeta \). For this example, we assume \( \zeta = 0.1 \) based on the phase information from the Nyquist plot.
+
+    \item \textbf{Natural Frequency \( \omega_n \)}:
+        The resonance frequency or peak frequency on the Nyquist plot can help estimate \( \omega_n \). In this case, we take \( \omega_n = 2 \) based on the plot's resonance peak.
+\end{itemize}
+
+\subsection*{4. Substituting into the Transfer Function Equation}
+
+Now that we have the values of \( K \), \( \zeta \), and \( \omega_n \), we substitute them into the standard second-order transfer function formula.
+
+Substitute \( K = 1 \), \( \zeta = 0.1 \), and \( \omega_n = 2 \) into the general transfer function:
+
+\[
+G(s) = \frac{K}{s^2 + 2\zeta\omega_n s + \omega_n^2}
+\]
+
+\[
+G(s) = \frac{1}{s^2 + 2(0.1)(2) s + (2)^2}
+\]
+
+\[
+G(s) = \frac{1}{s^2 + 0.4s + 4}
+\]
+
+Thus, the transfer function is:
+
+\[
+G(s) = \frac{1}{s^2 + 0.4s + 4}
+\]
+
+\subsection*{Conclusion}
+
+From the Nyquist plot, we have derived the transfer function of the system. This is a second-order system with a gain of 1, a damping coefficient of 0.1, and a natural frequency of 2.
+
+
+\section*{Problem 3}
+Given the transfer function of a second-order system, the goal is to find the system's output in response to a complex input signal that is a sum of cosines with different frequencies. Additionally, we need to plot the frequency response of the system.
+
+The transfer function is:
+
+\[
+G(s) = \frac{as + b}{cs^2 + ds + e}
+\]
+
+Where \( a \), \( b \), \( c \), \( d \), and \( e \) are the last five digits of the identifier. 
+
+\section*{Solution Steps}
+
+\subsection*{Step 1: Define the Transfer Function}
+
+For example, if the last five digits of your identifier are 12345, the transfer function becomes:
+
+\[
+G(s) = \frac{s + 2}{3s^2 + 4s + 5}
+\]
+
+Where:
+\[
+a = 1, \quad b = 2, \quad c = 3, \quad d = 4, \quad e = 5
+\]
+
+\subsection*{Step 2: Convert the Input Signal into Complex Form}
+
+The input signal is a sum of cosines at different frequencies. Using Euler's formula:
+
+\[
+\cos(\omega t) = \frac{e^{j\omega t} + e^{-j\omega t}}{2}
+\]
+
+The input signal \( u(t) \) is then expressed as:
+
+\[
+u(t) = \frac{1}{2} \sum_{k=1}^{1011} \left[ e^{j 2k t} + e^{-j 2k t} \right]
+\]
+
+Where \( k \) runs from 1 to 1011, representing the number of harmonics in the signal.
+
+\subsection*{Step 3: Apply the Laplace Transform}
+
+The Laplace transform of the input signal \( u(t) \) is:
+
+\[
+U(s) = \frac{1}{2} \sum_{k=1}^{1011} \left[ \frac{1}{s - j2k} + \frac{1}{s + j2k} \right]
+\]
+
+\subsection*{Step 4: Find the Output Signal in the Laplace Domain}
+
+The output signal \( Y(s) \) in the Laplace domain is the product of the transfer function \( G(s) \) and the Laplace transform of the input signal \( U(s) \):
+
+\[
+Y(s) = G(s) \cdot U(s)
+\]
+
+Substituting the expressions for \( G(s) \) and \( U(s) \):
+
+\[
+Y(s) = \frac{s + 2}{3s^2 + 4s + 5} \cdot \frac{1}{2} \sum_{k=1}^{1011} \left[ \frac{1}{s - j2k} + \frac{1}{s + j2k} \right]
+\]
+
+
+\subsection*{Matlab simulation}
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=8cm]{images/img2.png}  \hfill
+    \includegraphics[width=8cm]{images/img3.png}
+    \caption{Bode and Nyquist diagram}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\section*{Problem 3}
+
+
+1. 
+\[
+u(t) = \sum_{k=1}^{1011} \cos(2kt)
+\]
+
+2. 
+\[
+u(t) = \frac{1}{2} \sum_{k=1}^{1011} \left(e^{i2kt} + e^{-i2kt}\right)
+\]
+
+3. 
+\[
+Y(s) = G(s) \cdot U(s)
+\]
+
+\[
+G(s) = \frac{3s + 1}{s^2 + 1}
+\]
+
+4. 
+\[
+y(t) = \mathcal{L}^{-1}\left(\frac{G(s)}{s}\right) = 3\sin(t) - 2\cos(t)
+\]
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{}
+    \caption{Diagram}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+\section*{Problem 4}
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=8cm]{images/img4.png}  \hfill
+    \includegraphics[width=8cm]{images/img5.png}
+    \caption{Analyzing the system }
+    \label{fig:enter-label}
+\end{figure}
+
+
+\section*{Problem 5}
+
+\subsection*{Transfer Function}
+The transfer function is:
+\[
+G(s) = \frac{1}{2s + 1}
+\]
+
+\subsection*{Magnitude and Phase}
+Substitute \( s = j\omega \):
+\[
+G(j\omega) = \frac{1}{2j\omega + 1}
+\]
+
+The magnitude is:
+\[
+|G(j\omega)| = \frac{1}{\sqrt{(2\omega)^2 + 1}}
+\]
+
+The phase is:
+\[
+\angle G(j\omega) = -\tan^{-1}(2\omega)
+\]
+
+In decibels (dB):
+\[
+|G(j\omega)|_{\text{dB}} = 20 \log_{10} \left( \frac{1}{\sqrt{(2\omega)^2 + 1}} \right)
+\]
+
+\subsection*{Key Points for Bode Plot}
+
+1. **Low Frequency (\( \omega \to 0 \)):**
+   \[
+   |G(j\omega)|_{\text{dB}} = 20 \log_{10}(1) = 0 \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = -\tan^{-1}(0) = 0^\circ
+   \]
+
+2. **High Frequency (\( \omega \to \infty \)):**
+   \[
+   |G(j\omega)|_{\text{dB}} = 20 \log_{10} \left( \frac{1}{\infty} \right) = -\infty \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = -\tan^{-1}(\infty) = -90^\circ
+   \]
+
+3. **Break Frequency (\( \omega = \frac{1}{2} \)):**
+   \[
+   |G(j\omega)|_{\text{dB}} = 20 \log_{10} \left( \frac{1}{\sqrt{2}} \right) = -3 \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = -\tan^{-1}(1) = -45^\circ
+   \]
+
+\subsection*{Bode Plot}
+The magnitude and phase plots can be drawn using the calculated key points and connecting them smoothly.
+
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img8.png}
+    \caption{Bode plot}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsection*{Transfer Function 2}
+The transfer function is:
+\[
+G(s) = \frac{4}{s^2 + s + 4}
+\]
+
+\subsection*{Magnitude and Phase}
+Substitute \( s = j\omega \):
+\[
+G(j\omega) = \frac{4}{-\omega^2 + j\omega + 4}
+\]
+
+The magnitude is:
+\[
+|G(j\omega)| = \frac{4}{\sqrt{(-\omega^2 + 4)^2 + (\omega)^2}}
+\]
+
+The phase is:
+\[
+\angle G(j\omega) = -\tan^{-1}\left(\frac{\omega}{4 - \omega^2}\right)
+\]
+
+\subsection*{Key Points for Bode Plot}
+
+1. **Low Frequency (\( \omega \to 0 \)):**
+   \[
+   |G(j\omega)| = \frac{4}{\sqrt{4^2}} = 1, \quad |G(j\omega)|_{\text{dB}} = 20 \log_{10}(1) = 0 \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = -\tan^{-1}(0) = 0^\circ
+   \]
+
+2. **High Frequency (\( \omega \to \infty \)):**
+   \[
+   |G(j\omega)| \to 0, \quad |G(j\omega)|_{\text{dB}} \to -\infty \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = -\tan^{-1}(\infty) = -90^\circ
+   \]
+
+3. **Resonance Frequency (\( \omega_r \)):**
+   \[
+   \omega_r = \sqrt{4 - \frac{1}{2}}
+   \]
+   At this frequency:
+   \[
+   |G(j\omega_r)| = \frac{4}{\sqrt{(-\omega_r^2 + 4)^2 + \omega_r^2}}
+   \]
+   \[
+   \angle G(j\omega_r) = -\tan^{-1}\left(\frac{\omega_r}{4 - \omega_r^2}\right)
+   \]
+
+
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img9.png}
+    \caption{Bode plot}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsection*{Transfer Function 3}
+The transfer function is:
+\[
+G(s) = \frac{200s + 100}{s^2 + 60s + 50}
+\]
+
+\subsection*{Magnitude and Phase}
+Substitute \( s = j\omega \):
+\[
+G(j\omega) = \frac{200j\omega + 100}{-\omega^2 + 60j\omega + 50}
+\]
+
+The magnitude is:
+\[
+|G(j\omega)| = \frac{\sqrt{(200\omega)^2 + 100^2}}{\sqrt{(-\omega^2 + 50)^2 + (60\omega)^2}}
+\]
+
+The phase is:
+\[
+\angle G(j\omega) = \tan^{-1}\left(\frac{200\omega}{100}\right) - \tan^{-1}\left(\frac{60\omega}{50 - \omega^2}\right)
+\]
+
+\subsection*{Key Points for Bode Plot}
+
+1. **Low Frequency (\( \omega \to 0 \)):**
+   \[
+   |G(j\omega)| = \frac{100}{50} = 2, \quad |G(j\omega)|_{\text{dB}} = 20 \log_{10}(2) \approx 6.02 \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = \tan^{-1}(0) - \tan^{-1}(0) = 0^\circ
+   \]
+
+2. **High Frequency (\( \omega \to \infty \)):**
+   \[
+   |G(j\omega)| \to \frac{200}{60} = 3.33, \quad |G(j\omega)|_{\text{dB}} = 20 \log_{10}(3.33) \approx 10.45 \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = \tan^{-1}(\infty) - \tan^{-1}(\infty) = 0^\circ
+   \]
+
+3. **Resonance Frequency (\( \omega_r \)):**
+   \[
+   \omega_r = \sqrt{\text{Re}[j\omega]}
+   \]
+
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img10.png}
+    \caption{Bode plot}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsection*{Transfer Function 4}
+The transfer function is:
+\[
+G(s) = \frac{1}{s^2 + 0.4s + 4}
+\]
+
+\subsection*{Magnitude and Phase}
+Substitute \( s = j\omega \):
+\[
+G(j\omega) = \frac{1}{-\omega^2 + 4 + 0.4j\omega}
+\]
+
+The magnitude is:
+\[
+|G(j\omega)| = \frac{1}{\sqrt{(-\omega^2 + 4)^2 + (0.4\omega)^2}}
+\]
+
+The phase is:
+\[
+\angle G(j\omega) = -\tan^{-1}\left(\frac{0.4\omega}{4 - \omega^2}\right)
+\]
+
+\subsection*{Key Points for Bode Plot}
+
+1. **Low Frequency (\( \omega \to 0 \)):**
+   \[
+   |G(j\omega)| = \frac{1}{4} = 0.25, \quad |G(j\omega)|_{\text{dB}} = 20 \log_{10}(0.25) = -12 \, \text{dB}
+   \]
+   \[
+   \angle G(j\omega) = 0^\circ
+   \]
+
+2. **High Frequency (\( \omega \to \infty \)):**
+   \[
+   |G(j\omega)| \to 0
+   \]
+   \[
+   \angle G(j\omega) = -90^\circ
+   \]
+
+3. **Resonance Frequency (\( \omega_r \)):**
+   \[
+   \omega_r = \omega_n \sqrt{1 - 2\zeta^2} = 2 \sqrt{1 - 2(0.1)^2} \approx 1.99 \, \text{rad/s}
+   \]
+   At \( \omega_r \):
+   \[
+   |G(j\omega)|_{\text{max}} = \frac{1}{2\zeta\omega_n} = 2.5, \quad |G(j\omega)|_{\text{max, dB}} \approx 7.96 \, \text{dB}
+   \]
+
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img12.png}
+    \caption{Bode plot}
+    \label{fig:enter-label}
+\end{figure}
+
+\section*{Problem 6}
+\section*{PID contol tuning}
+\subsection*{Step 1: System Definition}
+The transfer function of the PID controller is given as:
+\[
+G_c(s) = K \frac{(s + a)^2}{s},
+\]
+and the system transfer function is:
+\[
+G(s) = \frac{1.2}{(0.3s + 1)(s + 1)(1.2s + 1)}.
+\]
+
+\subsection*{Step 2: Parameter Search Loops}
+To find the values of \(K\) and \(a\) within the specified ranges:
+\[
+1 \leq K \leq 4, \quad 0.4 \leq a \leq 4,
+\]
+with a step size of 0.05, we write a MATLAB program to determine the parameters that satisfy the following conditions:
+\begin{itemize}
+    \item Overshoot: between 2\% and 10\%.
+    \item Settling time: less than 2 seconds.
+\end{itemize}
+
+
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img13.png}
+    \caption{PID control tuning}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+\section*{Analysis of Results}
+
+\subsection*{Optimal Parameters}
+The MATLAB program determined the optimal parameters for the PID controller as:
+\[
+K = 2.70, \quad a = 0.85
+\]
+These values were selected as they satisfy the design specifications:
+\begin{itemize}
+    \item Overshoot between 2\% and 10\%.
+    \item Settling time less than 2 seconds.
+\end{itemize}
+
+\subsection*{Step Response Analysis}
+The step response of the system with the optimal parameters is shown in Figure~\ref{fig:step_response}. The response exhibits the following characteristics:
+\begin{itemize}
+    \item The overshoot is within the desired range, meeting the requirement for system stability without excessive oscillations.
+    \item The system settles within the specified time, achieving fast stabilization.
+    \item The response reaches steady state, confirming that the system is stable.
+\end{itemize}
+
+
+.
+
+
+
+
+\newpage
+\section*{Problem 7}
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img6.png}  
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=10cm]{images/img7.png}  
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+\end{document}
